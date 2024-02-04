@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import styled from "styled-components";
 import AAA from "./aaa";
-import EAP from "../wlans/eap";
+import EAP from "./eap/eap";
 
 export default function Security () {
   return(

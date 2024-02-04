@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
-import PSK from './psk.js';
-import EAP from './eap.js';
+import PSK from './psk/psk.js';
+import EAP from './eap/eap.js';
 
 export default function WLANS() {
   return(
@@ -13,10 +13,10 @@ export default function WLANS() {
           <MenuContainer>
             <p className='mainTitle'>WLANS</p>
             <p className='title'>▶ WLANS</p>
-            <LinkStyle to="/wlans/psk">
+            <LinkStyle to="/wlans/psk/general">
               <p className='detail'>▶ PSK</p>
             </LinkStyle>
-            <LinkStyle to="/wlans/eap">
+            <LinkStyle to="/wlans/eap/general">
               <p className='detail'>▶ EAP</p>
             </LinkStyle>
           </MenuContainer>
