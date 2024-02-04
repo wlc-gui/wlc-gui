@@ -4,45 +4,55 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 
 export default function General() {
   return (
-    <>
-    <TitleContainer>
-      <Title>Profile Name</Title>
-      <Detail><Input/><Check>check</Check></Detail>
-      <Title>Type</Title>
-      <Title>SSID</Title>
-      <Title>Status</Title>
-      <Title>Security Policies</Title>
-    </TitleContainer>
-    </>
+    <Wrapper>
+      <Container>
+        <Title>Profile Name</Title>
+        <Input/>
+        <Check>check</Check>
+      </Container>
+      <Container>
+        <Title>Type</Title>
+        <Detail>Wireless LAN</Detail>
+      </Container>
+      <Container>
+        <Title>SSID</Title>
+        <Input/>
+        <Check>check</Check>
+      </Container>
+      <Container>
+        <Title>Status</Title>
+        <Checkbox type="checkbox"/>
+        <Detail>Enabled</Detail>
+      </Container>
+      <Container>
+        <Title>Security Policies</Title>
+      </Container>
+    </Wrapper>
   );
 }
 
-const TitleContainer = styled.div`
+const Wrapper = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: baseline;
   flex-direction: column;
   gap: 50px;
-  width: 100%;
 `;
 
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+const Container = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
 `;
 
 const Title = styled.div`
-  color: #000;
+  color: black;
   font-size: 120%;
 `;
 
 const Detail = styled.div`
-  width: 100%;
   color: #a8a4a5;
   font-size: 120%;
-  display: flex;
-  align-items: center;
 `;
 
 const Checkbox = styled.input`
@@ -63,19 +73,13 @@ const Checkbox = styled.input`
   }
 `;
 
-const CheckboxLabel = styled.span`
-  font-size: 100%;
-  color: #a8a4a5;
-`;
-
 const Input = styled.input`
-  width: 25%;
+  width: 30%;
   height: 23px;
   border: solid 2px rgb(211, 211, 211);
-  border-radius: 10px;
+  border-radius: 10px;  
   outline: none;
   background-color: white;
-  margin-left: 50px;
 `;
 
 const Check = styled.button`
@@ -86,6 +90,8 @@ const Check = styled.button`
   background-color: white;
   cursor: pointer;
   transition: all ease 0.3s;
+  position: relative;
+  right: 40px;
 
   &:hover {
     background-color: #ccc;
