@@ -1,30 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, Route, Routes } from 'react-router-dom';
 import General from "./general";
+import Security from "./security";
 
 export default function EAP () {
-  const [selectedMenu, setSelectedMenu] = useState('General');
+  const [selectedEAPMenu, setSelectedEAPMenu] = useState(() => {
+    const storedEAPMenu = localStorage.getItem('selectedEAPMenu');
+    return storedEAPMenu || 'General';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('selectedEAPMenu', selectedEAPMenu);
+  }, [selectedEAPMenu])
 
   const handleMenuClick = (menu) => {
-    setSelectedMenu(menu);
+    setSelectedEAPMenu(menu);
   }
 
   return(
     <>
     <State>WLANs ⭢ Edit 'EAP'</State>
     <ButtonContainer>
-      <StyledNavLink to="/wlans/eap/general" onClick={() => handleMenuClick('General')} selected={selectedMenu === 'General'}>
+      <StyledNavLink to="/wlans/eap/general" onClick={() => handleMenuClick('General')} selected={selectedEAPMenu === 'General'}>
         General
       </StyledNavLink>
-      <StyledNavLink to="/wlans/eap/security" onClick={() => handleMenuClick('Security')} selected={selectedMenu === 'Security'}>
+      <StyledNavLink to="/wlans/eap/security/layer2" onClick={() => handleMenuClick('Security')} selected={selectedEAPMenu === 'Security'}>
         Security
       </StyledNavLink>
     </ButtonContainer>
-    <Wrapper selectedMenu={selectedMenu}>
+    <Wrapper selectedMenu={selectedEAPMenu}>
       <Routes>
-        <Route path="general/*" element={<General/>}/>
-        <Route path="security/*" />
+        <Route path="general" element={<General/>}/>
+        <Route path="security/*" element={<Security/>}/>
       </Routes>
     </Wrapper>
     </>
@@ -73,7 +81,7 @@ const StyledNavLink = styled(NavLinkBase)`
 const Wrapper = styled.div`
   display: flex;
   justify-content: baseline;
-  padding: ${({ selectedMenu }) => selectedMenu === 'General' ? '5%' : '2% 5% 2% 5%'};
+  padding: 5%;
   background-color: #f0f0f0;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
