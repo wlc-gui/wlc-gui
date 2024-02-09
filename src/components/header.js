@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 
 export default function Header() {
-  const [selectedOption, setSelectedOption] = useState('WLANS');
+  const [selectedOption, setSelectedOption] = useState(() => {
+    const storedOption = localStorage.getItem('selectedOption');
+    return storedOption || 'WLANS';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('selectedOption', selectedOption);
+  }, [selectedOption]);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
