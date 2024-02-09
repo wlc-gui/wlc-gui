@@ -1,28 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, Route, Routes } from 'react-router-dom';
 import General from "./general";
 import Security from "./security";
 
 export default function PSK() {
-  const [selectedMenu, setSelectedMenu] = useState('General');
+  const [selectedPSKMenu, setSelectedPSKMenu] = useState(() => {
+    const storedPSKMenu = localStorage.getItem('selectedPSKMenu');
+    return storedPSKMenu || 'General';
+  });
 
+  useEffect(() => {
+    localStorage.setItem('selectedPSKMenu', selectedPSKMenu);
+  }, [selectedPSKMenu]);
+  
   const handleMenuClick = (menu) => {
-    setSelectedMenu(menu);
+    setSelectedPSKMenu(menu);
   }
 
   return (
     <>
       <State>WLANs ⭢ Edit 'PSK'</State>
       <ButtonContainer>
-        <StyledNavLink to="/wlans/psk/general" onClick={() => handleMenuClick('General')} selected={selectedMenu === 'General'}>
+        <StyledNavLink to="/wlans/psk/general" onClick={() => handleMenuClick('General')} selected={selectedPSKMenu === 'General'}>
           General
         </StyledNavLink>
-        <StyledNavLink to="/wlans/psk/security" onClick={() => handleMenuClick('Security')} selected={selectedMenu === 'Security'}>
+        <StyledNavLink to="/wlans/psk/security" onClick={() => handleMenuClick('Security')} selected={selectedPSKMenu === 'Security'}>
           Security
         </StyledNavLink>
       </ButtonContainer>
-      <Wrapper selectedMenu={selectedMenu}>
+      <Wrapper selectedMenu={selectedPSKMenu}>
         <Routes>
           <Route path="general/*" element={<General/>}/>
           <Route path="security/*" element={<Security/>}/>
