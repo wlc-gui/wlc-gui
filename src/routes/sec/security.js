@@ -13,7 +13,7 @@ export default function Security () {
           <p className="mainTitle">Security</p>
           <p className="title">▶ Security</p>
           <LinkStyle to="/security/aaa">
-            <p className="detail">▶ AAA</p>
+            <p className="detail">▶ AAA Radius</p>
           </LinkStyle>
           <LinkStyle to="/security/aaa/authentication">
             <p className="sub-detail">▶ Authentication</p>
