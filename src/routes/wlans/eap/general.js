@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { useRecoilState } from "recoil";
+import { Layer2Policy } from "../../../store";
 
 export default function General() {
+  const selectedLayer2Policy = useRecoilState(Layer2Policy);
+
   return (
     <Wrapper>
       <Container>
         <Title>Profile Name</Title>
         <Input/>
-        <Check>check</Check>
+        <Check>save</Check>
       </Container>
       <Container>
         <Title>Type</Title>
@@ -17,7 +20,7 @@ export default function General() {
       <Container>
         <Title>SSID</Title>
         <Input/>
-        <Check>check</Check>
+        <Check>save</Check>
       </Container>
       <Container>
         <Title>Status</Title>
@@ -26,6 +29,7 @@ export default function General() {
       </Container>
       <Container>
         <Title>Security Policies</Title>
+        <Detail>{selectedLayer2Policy}</Detail>
       </Container>
     </Wrapper>
   );

@@ -54,7 +54,7 @@ const ButtonContainer = styled.div`
   width: 50%;
   position: absolute;
   left: 30%;
-  top: 22.65%;
+  top: 21.85%;
   gap: 1%;
 `;
 

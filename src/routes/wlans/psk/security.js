@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { PolicyState } from "../../../store";
 
 export default function Security() {
   const ciphers = ["AES", "TKIP", "CCMP256", "GCMP128", "GCMP256"];
@@ -9,17 +11,54 @@ export default function Security() {
     setSelectedIndex(index);
   };
 
+  const [selectedPolicy, setSelectedPolicy] = useRecoilState(PolicyState);
+
+  const handleChangePolicy = (e) => {
+    setSelectedPolicy(e.target.value);
+  }
+
+  const [inputPSK, setInputPSK] = useState("");
+  const handleInputPSK = (e) => {
+    setInputPSK(e.target.value);
+  };
+  
+  const savePSK = () => {
+    fetch('security', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ psk: inputPSK }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      // Handle success response
+      return response.json(); // 예를 들어, 서버로부터 JSON 형식의 응답을 받을 경우 처리
+    })
+    .then(data => {
+      console.log('Response data:', data);
+      // Handle response data
+    })
+    .catch(error => {
+      console.error('Error during fetch operation:', error.message);
+      // Handle error
+    });
+  };
+  
+
   return(
     <>
       <TitleContainer>
         <Title>Layer 2<Divider/></Title>
         <DetailContainer>
           <Detail>Layer2 Security
-            <Select>
-              <option>WPA + WPA2</option>
-              <option>WPA2-Personal</option>
-              <option>WPA2-Enterprise</option>
-              <option>WPA3</option>
+            <Select value={selectedPolicy} onChange={handleChangePolicy}>
+              <option value="WPA + WPA2">WPA + WPA2</option>
+              <option value="WPA2-Personal">WPA2-Personal</option>
+              <option value="WPA2-Enterprise">WPA2-Enterprise</option>
+              <option value="WPA3">WPA3</option>
             </Select>
           </Detail>
           <Detail>Mac Filtering<Checkbox type="checkbox"/></Detail>
@@ -32,8 +71,8 @@ export default function Security() {
         </DetailContainer>  
         <Title>Authentication Key Management<Divider/></Title>
         <DetailContainer>
-          <Detail>PSK Format<Button>ASCII</Button><Input/><Save>save</Save></Detail>
-          <Detail>PSK<Checkbox type="checkbox"/></Detail>
+          <Detail>PSK Format<Button>ASCII</Button></Detail>
+          <Detail>PSK<Input value={inputPSK} onChange={handleInputPSK}/><Save onClick={savePSK}>save</Save></Detail>
           <Detail>PSK-SHA2<Checkbox type="checkbox"/></Detail>
         </DetailContainer>
       </TitleContainer>
@@ -98,11 +137,12 @@ const Checkbox = styled.input`
 
 const Input = styled.input`
   width: 25%;
-  height: 23px;
+  height: 20px;
   border: solid 2px rgb(211, 211, 211);
   border-radius: 10px;
   outline: none;
   background-color: white;
+  margin-left: 10%;
 `;
 
 const Save = styled.button`

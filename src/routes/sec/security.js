@@ -2,7 +2,10 @@ import React from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import styled from "styled-components";
 import AAA from "./aaa";
-import EAP from "./eap/eap";
+import Profile from "./eap/profile";
+import FAST from "./eap/fast";
+import PEAP from "./eap/peap";
+import TLS from "./eap/tls";
 
 export default function Security () {
   return(
@@ -18,7 +21,7 @@ export default function Security () {
           <LinkStyle to="/security/aaa/authentication">
             <p className="sub-detail">▶ Authentication</p>
           </LinkStyle>
-          <LinkStyle to="/security/eap">
+          <LinkStyle to="/security/eap/profile">
             <p className="detail">▶ Local EAP</p>
           </LinkStyle>
           <LinkStyle to="/security/eap/profile">
@@ -38,7 +41,10 @@ export default function Security () {
     </Wrapper>
     <Routes>
       <Route path="aaa/*" Component={AAA}/>
-      <Route path="eap/*" Component={EAP}/>
+      <Route path="eap/profile" Component={Profile}/>
+      <Route path="eap/fast" Component={FAST}/>
+      <Route path="eap/peap" Component={PEAP}/>
+      <Route path="eap/tls" Component={TLS}/>
     </Routes>
     </>
   );

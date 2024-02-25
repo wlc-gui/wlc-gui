@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
 import PSK from './psk/psk.js';
@@ -23,8 +23,8 @@ export default function WLANS() {
         </Sidebar>
       </Wrapper>
       <Routes>
-        <Route path="psk/*" Component={PSK} />
-        <Route path="eap/*" Component={EAP} />
+        <Route path="/psk/*" Component={PSK} />
+        <Route path="/eap/*" Component={EAP} />
       </Routes>
     </>
   );
@@ -77,7 +77,7 @@ const MenuContainer = styled.div`
   }
 `;
 
-const LinkStyle = styled(Link)`
+const LinkStyle = styled(NavLink)`
   text-decoration: none;
   color: inherit;
   padding: 0;

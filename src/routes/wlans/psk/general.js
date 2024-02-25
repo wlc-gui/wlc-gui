@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { PolicyState } from "../../../store";
 
 export default function General() {
+  const selectedPolicy = useRecoilState(PolicyState);
+
   return (
     <>
     <TitleContainer>
@@ -16,10 +20,10 @@ export default function General() {
       <Detail>Wireless LAN</Detail>
       <Detail>Internal</Detail>
       <Detail>
-        <Checkbox type="checkbox"/>
+        <Checkbox type="checkbox" defaultChecked />
         <CheckboxLabel>Enabled</CheckboxLabel>
       </Detail>
-      <Detail>{}</Detail>
+      <Detail>{selectedPolicy}</Detail>
     </DetailContainer>
     </>
   );

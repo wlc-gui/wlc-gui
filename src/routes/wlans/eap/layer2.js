@@ -1,17 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { Layer2Policy } from "../../../store";
 
 export default function Layer2() {
+  const [selectedLayer2Policy, setSelectedLayer2Policy] = useRecoilState(Layer2Policy);
+
+  const handleChangeLayer2Policy = (e) => {
+    setSelectedLayer2Policy(e.target.value);
+  }
+
   return (
     <>
     <TitleContainer>
       <DetailContainer>
         <Detail>Layer2 Security
-        <Select>
-          <option>WPA</option>
-          <option>WPA2</option>
-          <option>WPA2-Enterprise</option>
-          <option>WPA3</option>
+        <Select value={selectedLayer2Policy} onChange={handleChangeLayer2Policy}>
+          <option value="WPA">WPA</option>
+          <option value="WPA2">WPA2</option>
+          <option value="WPA2-Enterprise">WPA2-Enterprise</option>
+          <option value="WPA3">WPA3</option>
         </Select>
         </Detail>
         <Detail>Mac Filtering
